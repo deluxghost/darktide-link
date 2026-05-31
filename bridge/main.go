@@ -6,6 +6,7 @@ package main
 import "C"
 
 import (
+	"os/exec"
 	"sync"
 	"sync/atomic"
 	"unsafe"
@@ -150,4 +151,19 @@ func DarktideLink_ShowMessage(title *C.char, message *C.char, flags C.uint) {
 	messageFlags := uint32(flags)
 
 	go link.Message(titleText, messageText, messageFlags)
+}
+
+//export DarktideLink_RegisterAsync
+func DarktideLink_RegisterAsync(handlerPath *C.char) C.int {
+	if handlerPath == nil {
+		return 0
+	}
+
+	command := exec.Command(C.GoString(handlerPath), "reg")
+	if err := command.Start(); err != nil {
+		return 0
+	}
+	go command.Wait()
+
+	return 1
 }

@@ -15,7 +15,7 @@ func showInfo(text string) {
 }
 
 func showError(text string) {
-	link.Message(link.T("app.title"), text, link.MessageBoxErrorFlags)
+	link.Message(link.T("app.title"), text, link.MessageBoxInfoFlags)
 }
 
 func confirmElevation(command, message string) bool {
@@ -23,7 +23,7 @@ func confirmElevation(command, message string) bool {
 		return true
 	}
 
-	if link.Message(link.T("app.title"), message, link.MessageBoxConfirmFlags) != link.MessageBoxYes {
+	if link.Message(link.T("app.title"), message, link.MessageBoxConfirmFlags) != link.MessageBoxIDYES {
 		return false
 	}
 
