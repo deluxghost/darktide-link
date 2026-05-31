@@ -11,6 +11,8 @@ import (
 	"golang.org/x/sys/windows"
 )
 
+const gameExecutable = "Darktide.exe"
+
 func showInfo(text string) {
 	link.Message(link.T("app.title"), text, windows.MB_OK|windows.MB_ICONINFORMATION)
 }
@@ -26,7 +28,7 @@ func confirmElevation(command, message string) bool {
 
 	link.Message(link.T("app.title"), message, windows.MB_OK|windows.MB_ICONWARNING)
 	if err := link.RunElevated(command); err != nil {
-		showError(link.T("error.permission"))
+		showError(link.T("error.request_privileges"))
 		os.Exit(1)
 	}
 
@@ -76,6 +78,7 @@ func runOpenCommand(rawURL string) {
 		os.Exit(2)
 	}
 
+	link.AllowForegroundActivation(gameExecutable)
 	if err := link.WriteMessage(string(payload)); err != nil {
 		showError(link.T("error.game_not_ready"))
 		os.Exit(1)

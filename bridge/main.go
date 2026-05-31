@@ -137,6 +137,14 @@ func DarktideLink_PollEvent(buffer *C.char, bufferSize C.int) C.int {
 	return 1
 }
 
+//export DarktideLink_ActivateWindow
+func DarktideLink_ActivateWindow() C.int {
+	if link.ActivateCurrentProcessWindow() {
+		return 1
+	}
+	return 0
+}
+
 //export DarktideLink_ShowMessage
 func DarktideLink_ShowMessage(title *C.char, message *C.char, flags C.uint) {
 	if message == nil {
