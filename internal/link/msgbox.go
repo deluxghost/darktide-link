@@ -7,11 +7,8 @@ import (
 )
 
 const (
-	MessageBoxInfoFlags    = windows.MB_OK | windows.MB_ICONINFORMATION
-	MessageBoxErrorFlags   = windows.MB_OK | windows.MB_ICONERROR
-	MessageBoxConfirmFlags = windows.MB_YESNO | windows.MB_ICONQUESTION | windows.MB_DEFBUTTON2
-
-	MessageBoxIDYES = 6
+	MessageBoxInfoFlags  = windows.MB_OK | windows.MB_ICONINFORMATION
+	MessageBoxErrorFlags = windows.MB_OK | windows.MB_ICONERROR
 )
 
 var errorMessageKeys = map[error]string{

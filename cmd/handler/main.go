@@ -8,14 +8,15 @@ import (
 	"darktide-link/internal/link"
 
 	"github.com/urfave/cli/v3"
+	"golang.org/x/sys/windows"
 )
 
 func showInfo(text string) {
-	link.Message(link.T("app.title"), text, 0)
+	link.Message(link.T("app.title"), text, windows.MB_OK|windows.MB_ICONINFORMATION)
 }
 
 func showError(text string) {
-	link.Message(link.T("app.title"), text, link.MessageBoxInfoFlags)
+	link.Message(link.T("app.title"), text, windows.MB_OK|windows.MB_ICONERROR)
 }
 
 func confirmElevation(command, message string) bool {
@@ -23,10 +24,7 @@ func confirmElevation(command, message string) bool {
 		return true
 	}
 
-	if link.Message(link.T("app.title"), message, link.MessageBoxConfirmFlags) != link.MessageBoxIDYES {
-		return false
-	}
-
+	link.Message(link.T("app.title"), message, windows.MB_OK|windows.MB_ICONWARNING)
 	if err := link.RunElevated(command); err != nil {
 		showError(link.T("error.permission"))
 		os.Exit(1)
